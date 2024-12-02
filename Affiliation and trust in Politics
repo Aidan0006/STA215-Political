@@ -1,0 +1,128 @@
+## Project: STA 215, Fall 2024, Final Project
+# Located
+
+
+setwd("H:/sta215")
+
+install.packages("haven")
+
+library(readr)
+library(dplyr)
+library(tidytext)
+library(tidyverse)
+library(ggplot2)
+library (haven)
+library(forcats)
+library(psych)
+
+library(readr)
+raw_data <- read.csv("raw_data.csv")
+
+raw_data <- raw_data %>% filter(complete.cases(.))
+view(raw_data)
+
+summary(raw_data)
+
+
+
+##################################################################################
+############### Table 1: descriptive statistics    ####################   
+##################################################################################
+
+table(raw_data$patriotism)
+mean(raw_data$patriotism)
+sd(raw_data$patriotism)
+hist(raw_data$patriotism)
+summary(raw_data$patriotism)
+min(raw_data$patriotism)
+max(raw_data$patriotism)
+
+
+table(raw_data$republican_party)
+mean(raw_data$republican_party)
+sd(raw_data$republican_party)
+hist(raw_data$republican_party)
+summary(raw_data$republican_party)
+min(raw_data$republican_party)
+max(raw_data$republican_party)
+
+
+table(raw_data$democratic_party)
+mean(raw_data$democratic_party)
+sd(raw_data$democratic_party)
+hist(raw_data$democratic_party)
+summary(raw_data$democratic_party)
+min(raw_data$democratic_party)
+max(raw_data$democratic_party)
+
+
+table(raw_data$trust_medical.professionals)
+
+
+table(raw_data$trust_journalists)
+
+
+table(raw_data$trust_average.american)
+
+
+
+
+##################################################################################
+#################### Figure 1:box plot             ####################   
+##################################################################################
+# BOX PLOT
+ggplot(raw_data, aes(x = trust_average.american, y = patriotism)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Patriotism and Trust in Average Americans",
+       x = "Trust in average Amercians",
+       y = "patriotism") +
+  theme_minimal()
+
+ggplot(raw_data, aes(x = trust_average.american, y = republican_party)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Republican Party and Trust in Average Americans",
+       x = "Trust in average Americans",
+       y = "republican party") +
+  theme_minimal()
+
+ggplot(raw_data, aes(x = trust_average.american, y = democratic_party)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Democratic party and Trust in Average American",
+       x = "Trust in average Americans",
+       y = "democratic party") +
+  theme_minimal()
+
+
+
+##################################################################################
+####################   Figure 2: scatter plot             ####################   
+##################################################################################
+plot(raw_data$patriotism, raw_data$republican_party)
+
+# add x line and y line for means
+meany <- mean(raw_data$patriotism)
+meanx <- mean(raw_data$republican_party)
+
+abline(h = meanx, col = "black")
+abline(v = meany, col = "black")
+
+linear_relationship <- lm(republican_party ~ patriotism, data = raw_data)
+summary(linear_relationship)
+abline(linear_relationship)
+
+
+##################################################################################
+####################  Figure 3: residual plot                ####################   
+##################################################################################
+# Plot the residuals
+plot(raw_data$patriotism, residuals(linear_relationship))
+
+# Add a horizontal line at zero to indicate the baseline
+abline(h = 0, col = "brown")
+
+
+##################################################################################
+####################  Table 2: contingency table                ####################   
+##################################################################################
+table(raw_data$trust_medical.professionals, raw_data$trust_journalists)
+chisq.test(raw_data$trust_medical.professionals, raw_data$trust_journalists)
