@@ -1,7 +1,12 @@
 ## Project: STA 215, Fall 2024, Final Project
-# Located
+# Located:   Posit Cloud
+# File Name: Trust in politics
+# Date:      12_05_24
+# Who:       Aidan McIlmurray
 
 
+## Load packages
+# NOTE: Run base.R if these commands return an error!
 setwd("H:/sta215")
 
 install.packages("haven")
@@ -16,11 +21,15 @@ library(forcats)
 library(psych)
 
 library(readr)
+
+# Load data 
 raw_data <- read.csv("raw_data.csv")
 
+# Run this commands to fill in missing data
 raw_data <- raw_data %>% filter(complete.cases(.))
-view(raw_data)
 
+# Run these commands to see data
+view(raw_data)
 summary(raw_data)
 
 
@@ -29,6 +38,8 @@ summary(raw_data)
 ############### Table 1: descriptive statistics    ####################   
 ##################################################################################
 
+
+# Trust in politics
 table(raw_data$patriotism)
 mean(raw_data$patriotism)
 sd(raw_data$patriotism)
@@ -38,6 +49,7 @@ min(raw_data$patriotism)
 max(raw_data$patriotism)
 
 
+# Trust in Republican Party
 table(raw_data$republican_party)
 mean(raw_data$republican_party)
 sd(raw_data$republican_party)
@@ -47,6 +59,7 @@ min(raw_data$republican_party)
 max(raw_data$republican_party)
 
 
+# Trust in Democratic Party
 table(raw_data$democratic_party)
 mean(raw_data$democratic_party)
 sd(raw_data$democratic_party)
@@ -56,12 +69,15 @@ min(raw_data$democratic_party)
 max(raw_data$democratic_party)
 
 
+# Trust in Medical Professionals
 table(raw_data$trust_medical.professionals)
 
 
+#Trust in Journalists
 table(raw_data$trust_journalists)
 
 
+#Trust in the Average American
 table(raw_data$trust_average.american)
 
 
@@ -108,6 +124,8 @@ abline(v = meany, col = "black")
 
 linear_relationship <- lm(republican_party ~ patriotism, data = raw_data)
 summary(linear_relationship)
+# Add the linear regression line to the scatter plot
+# NOTE: double check the scatter plot is currently in your utilities window!
 abline(linear_relationship)
 
 
