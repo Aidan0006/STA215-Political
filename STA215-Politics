@@ -4,10 +4,11 @@
 # Date:      12_05_24
 # Who:       Aidan McIlmurray
 
+# Set working directory to sta215
+setwd("H:/sta215")
 
 ## Load packages
 # NOTE: Run base.R if these commands return an error!
-setwd("H:/sta215")
 
 install.packages("haven")
 
